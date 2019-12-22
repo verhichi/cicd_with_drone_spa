@@ -12,7 +12,3 @@ steps:
   commands:
     - npm install
     - npm run build
-
-trigger:
-  branch:
-    - master
