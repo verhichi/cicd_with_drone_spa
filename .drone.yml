@@ -2,14 +2,36 @@ kind: pipeline
 type: docker
 name: default
 
+workspace:
+  base: /temp
+  path: /workdir
+
 steps:
-  - name: one long step
+  - name: install dependencies
     image: node:12.13.1
     commands:
       - npm install
-      - npm run build
       - echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
       - rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" /drone/src/dist/ verhichi@35.221.79.212:/home/verhichi/web
+
+  - name: build
+    image: node:12.13.1
+    commands:
+      - npm run build
+
+  - name: generate key
+    image: node:12.13.1
+    commands:
+      - echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
+  
+  - name: deploy
+    image: drillster/drone-rsync
+    hosts:
+      - 35.221.79.212
+    key: $SSH_PRIVATE_KEY
+    user: verhichi
+    source: /workdir/dist/
+    target: ~/web
 
 trigger:
   branch:
