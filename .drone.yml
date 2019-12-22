@@ -24,9 +24,9 @@ steps:
   
   - name: deploy
     image: drillster/drone-rsync
-    hosts:
-      - 35.221.79.212
-    key: $SSH_PRIVATE_KEY
+    hosts: [ "35.221.79.212" ]
+    key:
+      from_secret: SSH_PRIVATE_KEY
     user: verhichi
     source: /workdir/dist/
     target: ~/web
