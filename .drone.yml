@@ -11,8 +11,6 @@ steps:
     image: node:12.13.1
     commands:
       - npm install
-      - echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
-      - rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" /drone/src/dist/ verhichi@35.221.79.212:/home/verhichi/web
 
   - name: build
     image: node:12.13.1
