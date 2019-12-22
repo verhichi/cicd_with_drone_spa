@@ -3,8 +3,16 @@ type: docker
 name: default
 
 steps:
-  - name: greeting
+  - name: one long step
     image: node:12.13.1
     commands:
       - npm install
       - npm run build
+      - echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
+      - rsync -rptgDvz --delete -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" /drone/src/dist/ verhichi@35.221.79.212:/home/verhichi/web
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
