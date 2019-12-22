@@ -1,0 +1,18 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: greeting
+  image: node:12.13.1
+  commands:
+    - npm install
+    - npm run build
+
+trigger:
+  branch:
+    - master
