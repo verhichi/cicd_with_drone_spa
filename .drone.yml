@@ -3,8 +3,8 @@ type: docker
 name: default
 
 workspace:
-  base: /temp
-  path: /workdir
+  base: /drone
+  path: /src
 
 steps:
   - name: install dependencies
@@ -25,7 +25,7 @@ steps:
       user: verhichi
       key:
         from_secret: SSH_PRIVATE_KEY
-      source: /workdir/dist/
+      source: /drone/src/dist/
       target: ~/web
 
 trigger:
