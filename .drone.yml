@@ -25,7 +25,7 @@ steps:
       user: verhichi
       key:
         from_secret: SSH_PRIVATE_KEY
-      source: /drone/src/dist/
+      source: ./dist/
       target: ~/web
 
 trigger:
