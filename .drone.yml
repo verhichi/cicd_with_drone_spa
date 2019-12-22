@@ -27,7 +27,8 @@ steps:
         from_secret: SSH_PRIVATE_KEY
       source: ./dist/
       target: ~/web
-
+      rm: true
+      strip_components: 1
 trigger:
   branch:
     - master
